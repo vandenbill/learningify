@@ -26,8 +26,8 @@ export class BannerFileService {
       });
       return {
         status: 'succes',
-
         message: 'succes add banner',
+        data: { type: 'banner', fileName },
       };
     } catch (error) {
       return new NotFoundException('file not found');
@@ -59,8 +59,8 @@ export class BannerFileService {
       });
       return {
         status: 'succes',
-
         message: 'succes update banner',
+        data: { type: 'banner', fileName },
       };
     } catch (error) {
       return new NotFoundException('file not found');

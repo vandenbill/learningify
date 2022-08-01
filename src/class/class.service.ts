@@ -190,7 +190,6 @@ export class ClassService {
 
   async isTeacher(sub: string, classId: string) {
     try {
-      console.log(sub, classId);
       const teacher = await this.prisma.teacher.findUnique({
         where: { teacherId_classId: { teacherId: sub, classId } },
       });

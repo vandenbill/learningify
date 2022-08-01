@@ -23,7 +23,7 @@ export class AuthService {
   async register(dto: registerDto) {
     try {
       const hashedPassword = await bcrypt.hash(dto.password, 10);
-      await this.prisma.user.create({
+      const data = await this.prisma.user.create({
         data: {
           updatedAt: this.getTimeStamp(),
           email: dto.email,
@@ -34,6 +34,7 @@ export class AuthService {
       return {
         status: 'succes',
         message: 'succes create new user',
+        data: { type: 'user', id: data.id },
       };
     } catch (err) {
       if (err instanceof PrismaClientKnownRequestError) {
@@ -84,9 +85,8 @@ export class AuthService {
   }
 
   async logout(user: JwtPayload) {
-    let userData;
     try {
-      userData = await this.prisma.user.update({
+      await this.prisma.user.update({
         where: { email: user.email },
         data: { refresh_token: null },
       });
@@ -112,6 +112,7 @@ export class AuthService {
       return new ForbiddenException('Invalid Refresh Token');
     }
     return {
+      status: 'succes',
       message: 'succes create new acces token',
       acces_token: await this.generateAccesToken(user.sub, user.email),
     };

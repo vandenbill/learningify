@@ -65,7 +65,6 @@ export class AvatarFileController {
     )
     file: Express.Multer.File,
   ) {
-    console.log(file);
     return this.AvatarFileService.addAvatar(req.user, file.filename);
   }
 

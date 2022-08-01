@@ -17,6 +17,7 @@ export class AssignmentFileService {
     if (!(await this.isStudentClass(user.sub, taskId))) {
       return new ForbiddenException('youre not a student in this class');
     }
+    console.log(!(await this.isStudentClass(user.sub, taskId)));
     try {
       await this.prisma.assignment.update({
         where: { taskId_studentId: { taskId, studentId: user.sub } },
@@ -25,6 +26,7 @@ export class AssignmentFileService {
       return {
         status: 'succes',
         message: 'succes create assignment file',
+        data: { type: 'assignment', fileName },
       };
     } catch (error) {
       throw new InternalServerErrorException(error.message);
@@ -60,6 +62,7 @@ export class AssignmentFileService {
       return {
         status: 'succes',
         message: 'succes edit assignment file',
+        data: { type: 'assignment', fileName },
       };
     } catch (error) {
       throw new NotFoundException('file not found');

@@ -21,8 +21,8 @@ export class AvatarFileService {
       });
       return {
         status: 'succes',
-
         message: 'succes add avatar',
+        data: { type: 'avatar', fileName },
       };
     } catch (error) {
       return new InternalServerErrorException(error.message);
@@ -31,9 +31,6 @@ export class AvatarFileService {
 
   async getAvatarByName(fileName: string, res) {
     try {
-      await this.prisma.user.findFirst({
-        where: { avatar: fileName },
-      });
       res.sendFile(join(process.cwd(), 'public/avatar/' + fileName));
     } catch (error) {
       return new NotFoundException('file not found');
@@ -52,8 +49,8 @@ export class AvatarFileService {
       });
       return {
         status: 'succes',
-
         message: 'succes update avatar',
+        data: { type: 'avatar', fileName },
       };
     } catch (error) {
       return new NotFoundException('file not found');

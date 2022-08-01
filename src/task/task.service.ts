@@ -117,7 +117,7 @@ export class TaskService {
       await this.prisma.task.delete({ where: { id: taskId } });
       return {
         status: 'succes',
-        message: 'succes delete class',
+        message: 'succes delete task',
       };
     } catch (error) {
       return new InternalServerErrorException(error.message);

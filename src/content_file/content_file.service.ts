@@ -30,6 +30,7 @@ export class ContentFileService {
       return {
         status: 'succes',
         message: 'succes add content',
+        data: { type: 'content', fileName },
       };
     } catch (error) {
       return new NotFoundException(error.message);

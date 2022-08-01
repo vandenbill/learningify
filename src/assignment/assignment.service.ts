@@ -29,11 +29,10 @@ export class AssignmentService {
       });
       return {
         status: 'succes',
-
         message: 'succes create assignment',
       };
     } catch (error) {
-      throw new InternalServerErrorException(error.message);
+      throw new NotFoundException(error.message);
     }
   }
 

@@ -117,7 +117,7 @@ export class ContentService {
       await this.prisma.content.delete({ where: { id: contentId } });
       return {
         status: 'succes',
-        message: 'succes delete class',
+        message: 'succes delete content',
       };
     } catch (error) {
       return new NotFoundException(error.message);

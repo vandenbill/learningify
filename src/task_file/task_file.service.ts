@@ -27,7 +27,11 @@ export class TaskFileService {
         where: { id: taskId },
         data: { task: fileName },
       });
-      return { status: 'succes', message: 'succes add task' };
+      return {
+        status: 'succes',
+        message: 'succes add task file',
+        data: { type: 'task', fileName },
+      };
     } catch (error) {
       return new InternalServerErrorException(error.message);
     }
@@ -50,7 +54,6 @@ export class TaskFileService {
       const task = await this.prisma.task.findUnique({
         where: { id: taskId },
       });
-      console.log(task);
       if (!(await this.isNotTeacher(user.sub, task.classId))) {
         return new ForbiddenException(
           "you'r not teacher in this class or your task id is wrong",
