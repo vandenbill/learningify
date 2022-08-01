@@ -1,0 +1,118 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String   @id @default(cuid())
+  name          String
+  email         String   @unique
+  password      String
+  bio           String?
+  avatar        String?
+  refresh_token String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime
+
+  teachers    Teacher[]
+  assignments Assignment[]
+  students    Student[]
+  scores      Score[]
+}
+
+model Class {
+  id          String   @id @default(cuid())
+  name        String
+  description String
+  banner      String?
+  schedule    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime
+
+  teachers Teacher[]
+  students Student[]
+  contents Content[]
+  task     Task[]
+}
+
+model Content {
+  id          String   @id @default(cuid())
+  title       String
+  content     String?
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime
+
+  class   Class  @relation(fields: [classId], references: [id], onDelete: Cascade)
+  classId String
+}
+
+model Task {
+  id          String   @id @default(cuid())
+  title       String
+  task        String?
+  dateline    String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime
+
+  scores      Score[]
+  assignments Assignment[]
+
+  class   Class  @relation(fields: [classId], references: [id], onDelete: Cascade)
+  classId String
+}
+
+model Teacher {
+  user      User   @relation(fields: [teacherId], references: [id], onDelete: Cascade)
+  teacherId String
+
+  class   Class  @relation(fields: [classId], references: [id], onDelete: Cascade)
+  classId String
+
+  classMaker Boolean @default(false)
+
+  @@id([teacherId, classId])
+}
+
+model Student {
+  user      User   @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  studentId String
+
+  class   Class  @relation(fields: [classId], references: [id], onDelete: Cascade)
+  classId String
+
+  @@id([studentId, classId])
+}
+
+model Score {
+  task   Task   @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  taskId String
+
+  user      User   @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  studentId String
+
+  score Int
+
+  @@id([taskId, studentId])
+}
+
+model Assignment {
+  task   Task   @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  taskId String
+
+  User      User   @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  studentId String
+
+  description String
+  assignment  String?
+
+  @@id([taskId, studentId])
+}
