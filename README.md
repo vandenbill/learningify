@@ -18,6 +18,13 @@ Learningify App, Dibuat Untuk Mengikuti Kompetisi Secs Telkom 2022
 $ npm install
 ```
 
+## API Documentation
+
+```bash
+# swagger api documentation
+{baseUrl}/api
+```
+
 ## Setup Database
 
 ```bash
