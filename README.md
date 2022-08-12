@@ -10,7 +10,7 @@
 
 ## Description
 
-Learningify App, Dibuat Untuk Mengikuti Kompetisi Secs Telkom 2022
+Learningify App, Made to Participate the 2022 Telkom SECS Competition
 
 ## Installation
 
