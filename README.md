@@ -10,7 +10,9 @@
 
 ## Description
 
-Learningify App, Made to Participate the 2022 Telkom SECS Competition
+Learningify App (gclass++), Made to Participate the 2022 Telkom SECS Competition
+
+Lulus cuy, diluar nalar
 
 ## Installation
 
